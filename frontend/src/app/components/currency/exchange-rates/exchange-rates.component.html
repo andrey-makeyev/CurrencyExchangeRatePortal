@@ -1,0 +1,72 @@
+<div class="exchange-rates-container" @fadeIn>
+  <h1>European Central Bank exchange rates</h1>
+
+  <form [formGroup]="rateHistoryForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>From Date</mat-label>
+      <input matInput [matDatepicker]="fromDatePicker" formControlName="fromDate" required [min]="minDate"
+             [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>To Date</mat-label>
+      <input matInput [matDatepicker]="toDatePicker" formControlName="toDate" required [min]="minDate" [max]="maxDate">
+      <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #toDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Currency</mat-label>
+      <mat-select formControlName="currency" required>
+        <mat-option *ngFor="let currency of currencies" [value]="currency.currencyCode">
+          {{ currency.currencyCode }} - {{ currency.currencyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button style="background: blue" type="submit">Get Rates</button>
+  </form>
+
+  <div *ngIf="chartData.labels && chartData.labels.length > 0" class="chart-container">
+    <canvas baseChart
+            [datasets]="chartData.datasets"
+            [labels]="chartData.labels"
+            [options]="chartOptions">
+    </canvas>
+  </div>
+
+  <div class="table-container" *ngIf="allData.length > 0">
+    <mat-paginator *ngIf="allData.length > 0"
+                   [length]="allData.length"
+                   [pageSize]="5"
+                   [pageSizeOptions]="[5, 50, 300]"
+                   showFirstLastButtons
+                   (page)="updateTable($event)">
+    </mat-paginator>
+  </div>
+
+  <div class="table-container" *ngIf="allData.length > 0">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="proportion">
+        <th mat-header-cell *matHeaderCellDef>Proportion</th>
+        <td mat-cell *matCellDef="let element">{{ element.proportion }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="change">
+        <th mat-header-cell *matHeaderCellDef>Change</th>
+        <td mat-cell *matCellDef="let element">{{ element.change }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+</div>

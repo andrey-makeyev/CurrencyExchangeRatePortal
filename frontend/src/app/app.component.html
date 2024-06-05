@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <a routerLink="/" class="logo">CURRENCY EXCHANGE RATE PORTAL</a>
+  <span class="spacer"></span>
+  <mat-nav-list>
+    <div class="nav-links">
+      <a mat-list-item routerLink="/">Home</a>
+      <a mat-list-item routerLink="/exchange-rates">Exchange Rates</a>
+    </div>
+  </mat-nav-list>
+</mat-toolbar>
+
+<app-spinner></app-spinner>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

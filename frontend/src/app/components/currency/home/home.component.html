@@ -1,0 +1,50 @@
+<div class="container" @fadeIn>
+  <h1>Daily euro foreign exchange reference rates</h1>
+
+  <mat-card class="currency-list">
+    <div class="currency-item" *ngFor="let currency of popularCurrencies">
+      <span class="currency-label">EUR / {{ currency.name }}:</span>
+      <span class="currency-rate">{{ currency.rate }}</span>
+    </div>
+  </mat-card>
+
+  <div class="calculator-container" @fadeIn>
+    <form [formGroup]="calculatorForm" (ngSubmit)="onSubmit()">
+      <span class="label">Calculator</span>
+      <mat-form-field appearance="fill">
+        <input matInput type="number" formControlName="amount" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>From Currency</mat-label>
+        <mat-select formControlName="fromCurrency" required>
+          <mat-option *ngFor="let currency of currencies" [value]="currency.currencyCode">
+            {{ currency.currencyCode }} - {{ currency.currencyName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <span class="separator">=</span>
+
+      <mat-form-field appearance="fill">
+        <mat-label>To Currency</mat-label>
+        <mat-select formControlName="toCurrency" required>
+          <mat-option *ngFor="let currency of currencies" [value]="currency.currencyCode">
+            {{ currency.currencyCode }} - {{ currency.currencyName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <input matInput type="number" formControlName="result" [disabled]="true">
+      </mat-form-field>
+
+      <button mat-raised-button style="background: blue" type="submit">Convert</button>
+    </form>
+
+    <mat-card class="last-update">
+      <span>Last update: {{ lastUpdate }}</span>
+    </mat-card>
+
+  </div>
+</div>

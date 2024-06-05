@@ -1,0 +1,60 @@
+.content {
+  padding: 16px;
+  margin-top: 64px;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+  background: #424242;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  padding-right: 16px;
+  padding-left: 16px;
+  width: auto;
+}
+
+.nav-links a {
+  width: auto;
+  text-decoration: none;
+  color: white;
+  white-space: nowrap;
+}
+
+.spacer {
+  flex: 1;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+mat-nav-list {
+  display: flex;
+}
+
+mat-nav-list a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.mat-toolbar .logo {
+  color: white;
+  background-color: green;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 20px;
+  padding-right: 16px;
+  padding-left: 16px;
+}
